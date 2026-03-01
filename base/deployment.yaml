@@ -20,10 +20,6 @@ spec:
     metadata:
       labels:
         app: ot-knowledge-mcp
-      annotations:
-        org.infisical.com/inject: 'true'
-        org.infisical.com/inject-mode: sidecar-init
-        org.infisical.com/agent-config-map: 'volttrack-secrets'
     spec:
       terminationGracePeriodSeconds: 60
       containers:
