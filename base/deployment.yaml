@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ot-knowledge-mcp
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/port: '3000'
+    prometheus.io/path: '/metrics'
+
+spec:
+  selector:
+    matchLabels:
+      app: ot-knowledge-mcp
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: ot-knowledge-mcp
+      annotations:
+        org.infisical.com/inject: 'true'
+        org.infisical.com/inject-mode: sidecar-init
+        org.infisical.com/agent-config-map: 'volttrack-secrets'
+    spec:
+      terminationGracePeriodSeconds: 60
+      containers:
+        - name: ot-knowledge-mcp
+          image: ghcr.io/anpato/ot-knowledge-mcp
+          imagePullPolicy: Always
+          env:
+            - name: OTEL_SERVICE_NAME
+              value: volttrack-eventbus
+            - name: PORT
+              value: '3000'
+          ports:
+            - containerPort: 3000
+              name: http
+          livenessProbe:
+            httpGet:
+              path: /uptime
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 10
+            failureThreshold: 3
+            successThreshold: 1
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+            successThreshold: 1
+          startupProbe:
+            httpGet:
+              path: /health
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 30
+            successThreshold: 1
+          lifecycle:
+            preStop:
+              exec:
+                command: ['/bin/sh', '-c', 'sleep 30s']
+          resources:
+            requests:
+              memory: '1Gi'
+              cpu: '200m'

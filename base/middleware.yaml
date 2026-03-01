@@ -1,0 +1,11 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: local-network-only
+spec:
+  ipWhiteList:
+    sourceRange:
+      - 192.168.1.0/24 # Private Class C networks
+      - 192.168.3.0/24 # Private Class C networks
+      - 10.0.0.0/8 # Private Class A networks
+      - 127.0.0.1/32 # Localhost

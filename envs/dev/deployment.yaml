@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ot-knowledge-mcp
+  annotations:
+
+spec:
+  selector:
+    matchLabels:
+      app: ot-knowledge-mcp
+  template:
+    metadata:
+      labels:
+        app: ot-knowledge-mcp
+    spec:
+      terminationGracePeriodSeconds: 60
+      containers:
+        - name: ot-knowledge-mcp
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: OTEL_RESOURCE_ATTRIBUTES
+              value: 'deployment.environment=d'
+            - name: OTEL_DEPLOYMENT_ENVIRONMENT
+              value: 'd'
