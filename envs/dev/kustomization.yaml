@@ -1,13 +1,13 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 images:
-  - name: ghcr.io/anpato/ot-knowledge-mcp
-    newName: ghcr.io/anpato/ot-knowledge-mcp
-    newTag: 12005bee19492411c589c5c486ff7409d6e85d64
+- name: ghcr.io/anpato/ot-knowledge-mcp
+  newName: ghcr.io/anpato/ot-knowledge-mcp
+  newTag: ecace4a8a29704e037351fdc7062e62037d24888
 
 patches:
-  - path: ./deployment.yaml
+- path: ./deployment.yaml
 
 resources:
-  - ../../base
-  - ingress.yaml
+- ../../base
+- ingress.yaml
