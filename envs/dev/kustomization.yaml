@@ -7,7 +7,7 @@ images:
 
 patches:
   - path: ./deployment.yaml
-  - path: ./config.yaml
+
 resources:
   - ../../base
   - ingress.yaml
