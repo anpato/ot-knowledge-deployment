@@ -3,7 +3,7 @@ kind: Kustomization
 images:
 - name: ghcr.io/anpato/ot-knowledge-mcp
   newName: ghcr.io/anpato/ot-knowledge-mcp
-  newTag: c80dfd9fafb75135eeb8b906a14a6164b5a03643
+  newTag: b583b8916f8d8547ccacac8e864fc6db86f2b3a0
 
 patches:
 - path: ./deployment.yaml
