@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: ot-knowledge-mcp
   annotations:
-
+    secrets.infisical.com/auto-reload: 'true'
 spec:
   selector:
     matchLabels:
@@ -17,6 +17,9 @@ spec:
       containers:
         - name: ot-knowledge-mcp
           imagePullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                name: ot-knowledge-mcp-secrets
           env:
             - name: NODE_ENV
               value: production

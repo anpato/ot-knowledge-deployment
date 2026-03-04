@@ -11,3 +11,4 @@ patches:
 resources:
 - ../../base
 - ingress.yaml
+- infisical-secret.yaml
