@@ -29,8 +29,6 @@ spec:
           env:
             - name: OTEL_SERVICE_NAME
               value: ot-knowledge-mcp
-            - name: OTEL_EXPORTER_OTLP_ENDPOINT
-              value: http://signoz-collector-deployment-collector.opentelemetry-operator-system.svc.cluster.local:4318
             - name: PORT
               value: '3000'
           ports:
